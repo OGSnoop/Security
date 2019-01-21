@@ -163,3 +163,7 @@ service iptables save
 
 systemctl restart iptables.service
 systemctl restart ip6tables.service
+
+ifconfig up enp3s0
+
+tar cfzp "/ace.tgz" $DATA --same-owner
