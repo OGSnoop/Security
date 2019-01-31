@@ -43,14 +43,15 @@ chmod 750 /bin/uname
 chmod 750 /home/*
 
 ifconfig up enp3s0
-yum -y install ntpdate aide rsyslog
+yum -y install ntpdate aide rsyslog python3-pip #iptables-services
+
+pip3 install pycryptodome
+
+ifconfig down enp3s0
 
 echo "tty1" > /etc/securetty
 
-yum clean metadata
-yum clean all
-#^
-#might not use because fedora didn't like this
+
 
 service acpid stop
 service portmap stop
@@ -98,9 +99,6 @@ chkconfig rhnsd off
 chkconfig xfs off
 chkconfig yum-updatesd off
 chkconfig avahi-daemon off
-
-ifconfig up enp3s0
-yum -y install ntpdate aide rsyslog #iptables-services
 
 cp /etc/rsyslog.conf /etc/copyrsyslog.conf
 sed s/’’*.* @@remote-host:514”/”*.* @@192.168.10.168:514”/ /etc/copyrsyslog.conf > rsyslog.conf
